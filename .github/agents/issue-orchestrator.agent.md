@@ -1,9 +1,9 @@
 ---
 name: "Issue Orchestrator"
 description: "Use when Copilot is assigned to a GitHub issue, coordinating assigned issue refinement, ready label handoff, requirements.md, design.md, tasks.md, and delegation to software development subagents."
-tools: [read, search, agent, execute]
+tools: [read, search, agent, execute, github-mcp-server/*]
 agents: [spec-refinement, software-development]
-argument-hint: "GitHub issue context, labels, assignment state, and any existing refinement comments"
+argument-hint: "Required: repository owner/name, issue number or URL, title, body, labels, assignment state, existing comments, and any refinement comments"
 user-invocable: true
 ---
 

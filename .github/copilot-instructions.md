@@ -9,6 +9,7 @@ This repository defines a spec-driven Copilot agent harness. Treat GitHub issues
 ## Issue Workflow
 
 - When Copilot is assigned to a GitHub issue, route the issue through the issue orchestration workflow before implementing anything.
+- When a Copilot coding agent session starts from a GitHub issue, immediately invoke the `issue-orchestrator` custom agent first. Pass the complete issue context explicitly: repository owner/name, issue number or URL, title, body, labels, assignment state, and visible comments. Do not invoke the `spec-refinement` subagent directly from the top-level agent.
 - Delegate requirement clarification and planning to the spec refinement subagent.
 - The refinement subagent must produce GitHub issue content documenting spec impact; it must never modify, commit, push, or open pull requests for `requirements.md`, `design.md`, or `tasks.md`.
 - If clarification is needed, produce an exact GitHub issue comment. When the plan is clear, produce a replacement issue body with the refinement plan and readiness criteria.
