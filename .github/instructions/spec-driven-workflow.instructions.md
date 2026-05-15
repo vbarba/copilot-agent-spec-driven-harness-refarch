@@ -16,12 +16,20 @@ Use this workflow whenever a task starts from a GitHub issue or uses the reposit
 
 ## Refinement Phase
 
-- Refinement produces issue updates, not repository file edits.
+- Refinement produces issue-ready Markdown, not repository file edits.
 - The refinement subagent must never modify, commit, push, or open pull requests for `requirements.md`, `design.md`, or `tasks.md`.
 - The refinement output must include the user need, affected requirements, design impacts, task impacts, open questions, and readiness criteria as GitHub issue content.
-- Any blocking uncertainty must become a GitHub issue comment question.
-- When there are no blocking questions, the refinement output must be a complete issue body update with the plan and readiness criteria.
-- If GitHub issue tools are unavailable, return a ready-to-post comment or replacement issue body instead.
+- Any blocking uncertainty must become exact Markdown for a GitHub issue comment question.
+- When there are no blocking questions, the refinement output must be a complete replacement issue body with the plan and readiness criteria.
+- If GitHub issue write tools are unavailable, return the ready-to-post comment or replacement issue body instead.
+
+## GitHub Issue Publishing
+
+- The issue orchestrator is the only agent responsible for publishing refinement output to GitHub issues.
+- Prefer a dedicated GitHub issue write tool when the runtime provides one.
+- If using the GitHub CLI, verify `gh auth status` before posting or editing issues.
+- In cloud environments, require a native GitHub issue write tool or `GH_TOKEN`/`GITHUB_TOKEN` with issue write permission; do not assume local developer credentials are present.
+- If publishing cannot be verified, return the exact Markdown comment or replacement issue body instead of attempting a write.
 
 ## Ready Phase
 

@@ -10,8 +10,10 @@ This repository defines a spec-driven Copilot agent harness. Treat GitHub issues
 
 - When Copilot is assigned to a GitHub issue, route the issue through the issue orchestration workflow before implementing anything.
 - Delegate requirement clarification and planning to the spec refinement subagent.
-- The refinement subagent must document spec impact in the GitHub issue; it must never modify, commit, push, or open pull requests for `requirements.md`, `design.md`, or `tasks.md`.
-- If clarification is needed, ask it as a GitHub issue comment. When the plan is clear, update the GitHub issue body with the refinement plan and readiness criteria.
+- The refinement subagent must produce GitHub issue content documenting spec impact; it must never modify, commit, push, or open pull requests for `requirements.md`, `design.md`, or `tasks.md`.
+- If clarification is needed, produce an exact GitHub issue comment. When the plan is clear, produce a replacement issue body with the refinement plan and readiness criteria.
+- The orchestrator should publish that comment or body update only when a GitHub issue write tool is available; otherwise it must return the exact text to post.
+- In cloud environments, do not rely on local developer authentication; publish only when the runtime exposes a GitHub issue write tool or `gh` is authenticated with `GH_TOKEN`/`GITHUB_TOKEN` that can write issues.
 - When no GitHub issue update tool is available, return the exact comment text or replacement issue body that should be posted.
 - Do not treat an issue as ready for development while open refinement questions remain.
 - When an issue has the `ready` label, delegate implementation to the software development subagent.
